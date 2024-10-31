@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Solar System</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #0c0c1e;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .solar-system {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sun {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #ffd700, #ff8c00);
+            border-radius: 50%;
+            box-shadow: 0 0 60px #ffd700, 0 0 120px #ff8c00;
+            animation: pulse 2s infinite alternate;
+        }
+
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .planet:hover {
+            transform: scale(1.2);
+        }
+
+        .orbit {
+            position: absolute;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: rotate linear infinite;
+        }
+
+        #planet-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        /* Planet Specific Styles */
+        #mercury { background: linear-gradient(to right, #8C7853, #B8860B); }
+        #venus { background: linear-gradient(to right, #FFA500, #FF4500); }
+        #earth { background: linear-gradient(to right, #1E90FF, #00CED1); }
+        #mars { background: linear-gradient(to right, #FF4500, #8B0000); }
+        #jupiter { background: linear-gradient(to right, #D2691E, #8B4513); }
+        #saturn { background: linear-gradient(to right, #F5DEB3, #DEB887); }
+        #uranus { background: linear-gradient(to right, #40E0D0, #20B2AA); }
+        #neptune { background: linear-gradient(to right, #4169E1, #000080); }
+    </style>
+</head>
+<body>
+    <div class="solar-system" id="solar-system">
+        <div class="sun" id="sun"></div>
+        <div id="planet-info"></div>
+    </div>
+
+    <script>
+        const solarSystem = document.getElementById('solar-system');
+        const planetInfo = document.getElementById('planet-info');
+
+        const planets = [
+            { 
+                name: 'Mercury', 
+                distance: 20, 
+                size: 20, 
+                color: '#8C7853',
+                orbitalPeriod: 88,
+                description: 'Smallest planet, closest to the sun.'
+            },
+            { 
+                name: 'Venus', 
+                distance: 40, 
+                size: 30, 
+                color: '#FFA500',
+                orbitalPeriod: 225,
+                description: 'Hottest planet in the solar system.'
+            },
+            { 
+                name: 'Earth', 
+                distance: 60, 
+                size: 35, 
+                color: '#1E90FF',
+                orbitalPeriod: 365,
+                description: 'Our home planet, the only known planet with life.'
+            },
+            { 
+                name: 'Mars', 
+                distance: 80, 
+                size: 25, 
+                color: '#FF4500',
+                orbitalPeriod: 687,
+                description: 'The Red Planet, potential for future human exploration.'
+            },
+            { 
+                name: 'Jupiter', 
+                distance: 110, 
+                size: 50, 
+                color: '#D2691E',
+                orbitalPeriod: 4333,
+                description: 'Largest planet, with the Great Red Spot.'
+            },
+            { 
+                name: 'Saturn', 
+                distance: 140, 
+                size: 45, 
+                color: '#F5DEB3',
+                orbitalPeriod: 10759,
+                description: 'Famous for its spectacular ring system.'
+            },
+            { 
+                name: 'Uranus', 
+                distance: 170, 
+                size: 40, 
+                color: '#40E0D0',
+                orbitalPeriod: 30687,
+                description: 'Ice giant that rotates on its side.'
+            },
+            { 
+                name: 'Neptune', 
+                distance: 200, 
+                size: 35, 
+                color: '#4169E1',
+                orbitalPeriod: 60190,
+                description: 'Windiest planet in the solar system.'
+            }
+        ];
+
+        function createPlanet(planet) {
+            const orbit = document.createElement('div');
+            orbit.className = 'orbit';
+            orbit.style.width = `${planet.distance * 10}px`;
+            orbit.style.height = `${planet.distance * 10}px`;
+            orbit.style.animationDuration = `${planet.orbitalPeriod / 50}s`;
+
+            const planetElement = document.createElement('div');
+            planetElement.className = 'planet';
+            planetElement.id = planet.name.toLowerCase();
+            planetElement.style.width = `${planet.size}px`;
+            planetElement.style.height = `${planet.size}px`;
+            planetElement.style.backgroundColor = planet.color;
+
+            planetElement.addEventListener('click', () => {
+                planetInfo.style.display = 'block';
+                planetInfo.innerHTML = `
+                    <h2>${planet.name}</h2>
+                    <p>${planet.description}</p>
+                    <p>Orbital Period: ${planet.orbitalPeriod} Earth Days</p>
+                `;
+            });
+
+            orbit.appendChild(planetElement);
+            solarSystem.appendChild(orbit);
+        }
+
+        // Create planets
+        planets.forEach(createPlanet);
+
+        // Close planet info when clicking outside
+        solarSystem.addEventListener('click', (event) => {
+            if (!event.target.closest('.planet')) {
+                planetInfo.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
