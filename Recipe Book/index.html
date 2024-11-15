@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Book</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search recipes by name or ingredients..."
+                id="searchInput">
+        </div>
+    </header>
+
+    <main class="container">
+        <aside class="add-recipe">
+            <h2>Add New Recipe</h2>
+            <form id="recipeForm">
+                <div class="form-group">
+                    <label class="form-label">Recipe Name</label>
+                    <input type="text" class="form-input" id="recipeName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Recipe Image</label>
+                    <div class="image-preview" id="imagePreview">
+                        <i data-lucide="image" style="width: 48px; height: 48px; color: #ddd;"></i>
+                    </div>
+                    <input type="file" class="form-input" id="recipeImage" accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Ingredients (one per line)</label>
+                    <textarea class="form-textarea" id="ingredients" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Preparation Steps</label>
+                    <textarea class="form-textarea" id="steps" required></textarea>
+                </div>
+
+                <button type="submit" class="btn">Add Recipe</button>
+            </form>
+        </aside>
+
+        <section class="recipe-grid" id="recipeGrid">
+            <!-- Recipes will be added here dynamically -->
+        </section>
+    </main>
+
+    <div class="modal" id="recipeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <h3>Ingredients:</h3>
+            <ul class="ingredient-list" id="modalIngredients"></ul>
+            <h3>Steps:</h3>
+            <p class="steps" id="modalSteps"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

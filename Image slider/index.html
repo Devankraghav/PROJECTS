@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: clamp(10px, 3vw, 20px);
+            background: #f0f2f5;
+            font-family: "Montserrat", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: min(1000px, 95vw);
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: clamp(8px, 2vw, 12px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            background: #fff;
+            aspect-ratio: 16/9;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fade 0.8s ease-in-out;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0.4;
+                transform: scale(1.02);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: clamp(12px, 3vw, 20px);
+            font-size: clamp(0.875rem, 2vw, 1.2rem);
+            font-weight: 500;
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            width: clamp(35px, 5vw, 50px);
+            height: clamp(35px, 5vw, 50px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 50%;
+            font-size: clamp(18px, 2.5vw, 24px);
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .nav-button:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev {
+            left: clamp(10px, 2vw, 20px);
+        }
+
+        .next {
+            right: clamp(10px, 2vw, 20px);
+        }
+
+        .dots-container {
+            position: absolute;
+            bottom: clamp(10px, 3vw, 20px);
+            right: 0%;
+            top: 5%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: clamp(6px, 1vw, 10px);
+            z-index: 10;
+        }
+
+        .dot {
+            width: clamp(8px, 1.5vw, 10px);
+            height: clamp(8px, 1.5vw, 10px);
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot:hover {
+            transform: scale(1.2);
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        img:hover{
+            cursor: wait;
+        }
+
+        /* Additional responsive breakpoints */
+        @media (max-width: 480px) {
+            .slide-caption {
+                font-size: 0.875rem;
+                padding: 10px;
+            }
+            
+            .nav-button {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .dot {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .slide-caption {
+                font-size: 1rem;
+            }
+        }
+
+        @media (hover: none) {
+            .nav-button {
+                background: rgba(255, 255, 255, 0.95);
+            }
+            
+            .dot:hover {
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slide.active {
+                animation: none;
+            }
+            
+            .nav-button:hover {
+                transform: translateY(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slide active">
+            <img src="https://www.hdcarwallpapers.com/walls/dodge_challenger_srt_4k-HD.jpg" alt="Dodge Challenger SRT">
+            <div class="slide-caption">Dodge Challenger SRT</div>
+        </div>
+        <div class="slide">
+            <img src="https://thecharge.ca/wp-content/uploads/2022/08/PBC22_Delorean_23.jpg" alt="DeLorean Alpha 5">
+            <div class="slide-caption">DeLorean Alpha 5</div>
+        </div>
+        <div class="slide">
+            <img src="https://pixelz.cc/wp-content/uploads/2018/11/rolls-royce-phantom-black-uhd-4k-wallpaper.jpg" alt="Rolls Royce Phantom">
+            <div class="slide-caption">Rolls Royce Phantom</div>
+        </div>
+        <div class="slide">
+            <img src="https://www.rolls-roycemotorcars.com/content/dam/rrmc/marketUK/rollsroycemotorcars_com/1-0-home/images/phantom-goldfinger/D-HERO-01-GF-HP.jpg/jcr:content/renditions/cq5dam.web.1920.webp" alt="Rolls Royce Phantom">
+            <div class="slide-caption">Rolls Royce Phantom</div>
+        </div>
+        <div class="slide">
+            <img src="images/bmw-m3-competition-xdrive.jpg" alt="BMW">
+            <div class="slide-caption">BMW M3 Competition</div>
+        </div>
+        <div class="slide">
+            <img src="https://cars.mclaren.com/content/dam/mclaren-automotive/bp/home_hero_wide.jpg" alt="Aston Martin">
+            <div class="slide-caption">THE McLAREN W1</div>
+        </div>
+        <div class="slide">
+            <img src="https://www.hdcarwallpapers.com/walls/2018_bugatti_chiron_sport_4k_4-HD.jpg" alt="Bugatti">
+            <div class="slide-caption">Bugatti Chiron</div>
+        </div>
+
+        <button class="nav-button prev">❮</button>
+        <button class="nav-button next">❯</button>
+
+        <div class="dots-container"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.slide');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    const dotsContainer = document.querySelector('.dots-container');
+    let currentSlide = 0;
+    let slideInterval;
+
+    // Create navigation dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    function updateDots() {
+        document.querySelectorAll('.dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function goToSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        updateDots();
+    }
+
+    function nextSlide() {
+        goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        goToSlide(currentSlide - 1);
+    }
+
+    // Button navigation
+    prevButton.addEventListener('click', () => {
+        prevSlide();
+        resetInterval();
+    });
+
+    nextButton.addEventListener('click', () => {
+        nextSlide();
+        resetInterval();
+    });
+
+    // Auto-advance slides
+    function startSlideshow() {
+        slideInterval = setInterval(nextSlide, 3000); // Set interval to 5000 ms
+    }
+
+    function resetInterval() {
+        clearInterval(slideInterval);
+        startSlideshow();
+    }
+
+    // Pause on hover
+    const slider = document.querySelector('.slider-container');
+    slider.addEventListener('mouseenter', () => {
+        clearInterval(slideInterval);
+    });
+    slider.addEventListener('mouseleave', startSlideshow);
+
+    // Start the slideshow
+    startSlideshow();
+});
+
+    </script>
+</body>
+</html>
