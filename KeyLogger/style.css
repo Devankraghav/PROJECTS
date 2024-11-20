@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+*{
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+
+body{
+  background-image: url(lightning\ .jpg);
+}
+
+h1{
+  margin-top: 70px;
+  font-family: "Creepster", system-ui;
+  font-weight: 400;
+  /* font-size: 2rem; */
+  font-style: normal;
+}
+
+#startBtn, #stopBtn{
+padding: 10px;
+font-size: 1rem;
+color: black;
+border-radius: 12px;
+}
+
+.show{
+  display: flex;
+  margin: 30px;
+}
+
+#scr1, #scr2{
+  width: 700px;
+  margin: 10px;
+  padding: 30px;
+border: 1px solid gray;
+}
